@@ -1,0 +1,37 @@
+﻿@model SampleBookingSystem.Web.Models.Reservation.CreateReservationViewModel
+
+@{
+    ViewBag.Title = "BookRooms";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BookRooms</h2>
+@using (@Html.BeginForm("BookRooms", "Reservation", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        <div class="form-group">
+            @Html.Label("Free rooms", new { @class = "col-md-3 control-label" })
+            <div class="col col-md-2">
+                @Html.DropDownList("RoomId", Model.FreeRoomsList, "Select room", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CheckinDate, new { @class = "col-md-3 control-label" })
+            <div class="col col-md-2">
+                @Html.EditorFor(m => m.CheckinDate, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CheckoutDate, new { @class = "col-md-3 control-label" })
+            <div class="col col-md-9">
+                @Html.EditorFor(m => m.CheckoutDate, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <input type="submit" value="Save" class="col-md-offset-3 btn btn-success" />
+        @Html.ActionLink("Reset", "BookRooms", "Reservation", new { @class = "btn btn-danger" })
+    </fieldset>
+}
